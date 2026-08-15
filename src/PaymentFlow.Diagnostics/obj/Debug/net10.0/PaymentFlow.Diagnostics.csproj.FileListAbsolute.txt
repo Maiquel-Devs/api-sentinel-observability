@@ -1,0 +1,13 @@
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\bin\Debug\net10.0\PaymentFlow.Diagnostics.deps.json
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\bin\Debug\net10.0\PaymentFlow.Diagnostics.dll
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\bin\Debug\net10.0\PaymentFlow.Diagnostics.pdb
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\obj\Debug\net10.0\PaymentFlow.Diagnostics.csproj.AssemblyReference.cache
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\obj\Debug\net10.0\PaymentFlow.Diagnostics.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\obj\Debug\net10.0\PaymentFlow.Diagnostics.AssemblyInfoInputs.cache
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\obj\Debug\net10.0\PaymentFlow.Diagnostics.AssemblyInfo.cs
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\obj\Debug\net10.0\PaymentFlow.Diagnostics.csproj.CoreCompileInputs.cache
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\obj\Debug\net10.0\PaymentFlow.Diagnostics.sourcelink.json
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\obj\Debug\net10.0\PaymentFlow.Diagnostics.dll
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\obj\Debug\net10.0\refint\PaymentFlow.Diagnostics.dll
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\obj\Debug\net10.0\PaymentFlow.Diagnostics.pdb
+C:\Users\Maiquel\Documents\Estudos\api-sentinel-observability\src\PaymentFlow.Diagnostics\obj\Debug\net10.0\ref\PaymentFlow.Diagnostics.dll
