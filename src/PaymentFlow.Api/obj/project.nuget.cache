@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "elnNAyaLVZg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Maiquel\\Documents\\Estudos\\api-sentinel-observability\\src\\PaymentFlow.Api\\PaymentFlow.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Maiquel\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.11\\microsoft.aspnetcore.openapi.10.0.11.nupkg.sha512",
+    "C:\\Users\\Maiquel\\.nuget\\packages\\microsoft.openapi\\2.7.5\\microsoft.openapi.2.7.5.nupkg.sha512"
+  ],
+  "logs": []
+}
