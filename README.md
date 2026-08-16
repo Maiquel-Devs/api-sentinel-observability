@@ -44,7 +44,7 @@ O **Google Gemini**, atuando como modelo de linguagem de um AI Agent no n8n, ana
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Runtime & Linguagem:** .NET 10 e C# 14
+* **Runtime & Linguagem:** .NET 10 (a versão do C# não é fixada explicitamente em nenhum `.csproj` do projeto)
 * **Framework Web:** ASP.NET Core
 * **Documentação:** OpenAPI / Swagger (Swashbuckle.AspNetCore)
 * **Resiliência & Observabilidade:**
@@ -362,7 +362,7 @@ No n8n:
 
 A URL do webhook do n8n é lida da seção `Sentinel:WebhookUrl` em `appsettings.json`.
 
-> **⚠️ Importante:** essa URL **não deve ficar hardcoded** no `appsettings.json` versionado. Configure-a via variável de ambiente (`Sentinel__WebhookUrl`) ou `appsettings.Production.json` fora do controle de versão.
+> **⚠️ Importante:** essa URL **não deve ficar hardcoded** no `appsettings.json` versionado. Configure-a fora do controle de versão — por exemplo, via `appsettings.Production.json` (não versionado) ou variável de ambiente seguindo a convenção padrão do ASP.NET Core para seções aninhadas (`Sentinel__WebhookUrl`). **Nenhuma das duas formas está implementada no projeto hoje** — é apenas a forma recomendada de resolver a pendência de segurança apontada acima.
 
 ---
 
