@@ -5,7 +5,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Adiciona os serviços da API
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// Configura o Swagger para ler a documentação XML
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFilename = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
+    
+    if (File.Exists(xmlPath))
+    {
+        options.IncludeXmlComments(xmlPath);
+    }
+});
 
 // Injeta os diagnósticos passando a configuração do appsettings.json
 builder.Services.AddSentinelDiagnostics(builder.Configuration);

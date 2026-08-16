@@ -1,14 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Gera o arquivo XML de documentação para o Swagger -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Suprime avisos de falta de documentação XML em métodos que não tiverem summary -->
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\PaymentFlow.Diagnostics\PaymentFlow.Diagnostics.csproj" />
   </ItemGroup>
+
 </Project>

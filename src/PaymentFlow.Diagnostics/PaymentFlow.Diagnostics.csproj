@@ -1,13 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- Gera o arquivo XML de documentação para o IntelliSense -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Suprime alertas de compilação para membros públicos sem documentação XML -->
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.12" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.11" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.11" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.11" />
   </ItemGroup>
+
 </Project>
