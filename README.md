@@ -47,7 +47,7 @@ A solução foi estruturada aplicando o **Princípio da Responsabilidade Única 
   * Biblioteca isolada e reutilizável contendo o `SentinelExceptionMiddleware` e o serviço de despacho HTTP assíncrono.
   * **Vantagem de Design:** Atua como um módulo *plug-and-play* que pode ser empacotado como um pacote NuGet interno e acoplado a qualquer outro microsserviço da empresa sem alterar a regra de negócio do core.
 
-  ---
+---
 
 ## 🤖 Fluxo de Automação no n8n
 
@@ -57,3 +57,57 @@ O **n8n** atua como o orquestrador orientado a eventos, conectando o disparo da 
 * **Filter Node:** Valida a integridade do payload recebido para garantir que apenas exceções válidas avancem no fluxo.
 * **AI Agent (Google Gemini):** Recebe o contexto completo do erro. Através de um *system prompt* focado em Engenharia de Software (SRE), o modelo analisa a *stack trace*, identifica a causa raiz provável e gera recomendações práticas de mitigação.
 * **Discord Node:** Formata os dados retornados pela IA em um *embed* visual rico e publica o alerta diretamente no canal técnico da equipe.
+
+---
+
+## 📸 Demonstração Visual e Evidências
+
+### 1. Documentação Interativa & Resposta Padronizada (RFC 7807)
+A API expõe seus contratos com documentação XML nativa no Swagger. Ao invocar o endpoint `POST /api/v1/Payments/process`, o middleware intercepta a exceção e retorna imediatamente o payload estruturado em `application/problem+json` com status **HTTP 500**:
+
+![Retorno HTTP 500 RFC 7807 no Swagger](docs/images/swagger-error.png)
+
+---
+
+### 2. Orquestração Orientada a Eventos (n8n)
+O fluxo recebe a telemetria via Webhook, valida o payload no nó de filtro, consulta o **Google Gemini** através do nó de AI Agent e despacha o alerta formatado para o canal de operações:
+
+![Fluxo de Execução no n8n](docs/images/n8n-flow.png)
+
+---
+
+### 3. Diagnóstico Inteligente de Causa Raiz (Google Gemini & Discord)
+O modelo analisa o *stack trace* e os metadados do erro, identificando a linha exata da falha, a provável causa raiz e gerando um plano de ação detalhado com código C# de correção:
+
+![Alerta do Incidente no Discord - Diagnóstico](docs/images/discord-alert-1.png)
+
+![Alerta do Incidente no Discord - Correção Recomendada](docs/images/discord-alert-2.png)
+
+![Alerta do Incidente no Discord - Dica de Observabilidade](docs/images/discord-alert-3.png)
+
+---
+
+## 📁 Estrutura do Repositório
+
+```text
+api-sentinel/
+├── docs/
+│   └── images/                   # Evidências visuais de execução
+├── n8n/
+│   └── workflow.json             # Fluxo exportado para importação rápida no n8n
+├── src/
+│   ├── PaymentFlow.Api/          # Camada de aplicação (Controllers e rotas)
+│   │   ├── Controllers/
+│   │   ├── Properties/
+│   │   ├── appsettings.json
+│   │   └── Program.cs
+│   └── PaymentFlow.Diagnostics/  # SDK/Biblioteca de Observabilidade e Middleware
+│       ├── Extensions/
+│       ├── Middleware/
+│       ├── Models/
+│       └── Services/
+├── docker-compose.yml            # Orquestração do container da API
+├── Dockerfile                    # Multi-stage build otimizado (.NET 10)
+├── .gitignore
+└── README.md
+

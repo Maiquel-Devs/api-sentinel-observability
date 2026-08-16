@@ -1,0 +1,171 @@
+{
+  "name": "API Sentinel - Error Observability",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "payment-errors",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3be72aa7-be5c-4964-9460-39edf06533be",
+      "name": "Webhook",
+      "webhookId": "964a8e85-7592-4ef4-b2cc-d2c07a3bba3c"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "ed5fc6db-e49e-4a0e-9eef-d780d810ca4c",
+              "leftValue": "={{ $json.body.statusCode }}",
+              "rightValue": 500,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "1d8af75c-bd88-4bc8-8162-9d5c2f7500c8",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Você é um Engenheiro de Software Sênior especialista em observabilidade e resiliência em .NET C#.\nSua tarefa é analisar o seguinte erro de produção retornado pelo middleware e gerar um diagnóstico rápido para os desenvolvedores.\n\nDados do Erro:\n- Serviço: {{ $json.body.serviceName }}\n- Ambiente: {{ $json.body.environment }}\n- Endpoint: {{ $json.body.httpMethod }} {{ $json.body.endpoint }}\n- Exceção: {{ $json.body.exceptionType }}\n- Mensagem: {{ $json.body.errorMessage }}\n- StackTrace: {{ $json.body.stackTrace }}\n\nResponda em Markdown de forma direta e técnica nos seguintes 3 pontos:\n1. **Causa Provável**: Explicação em 1 frase simples do motivo da falha.\n2. **Onde Investigar**: Apontar o arquivo e linha indicados na stack trace.\n3. **Sugestão de Correção**: Como resolver esse bug em código C#/.NET.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "2e168191-b3f9-4e04-a7d4-5da632a40358",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        208
+      ],
+      "id": "8dfd0947-2350-4370-ae2c-227ad45da848",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "UiX0PQX0zjRSkLE0",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "=🚨 **[INCIDENTE CRÍTICO DE API]**\n\n🔹 **Serviço:** {{ $('Webhook').item.json.body.serviceName }} (`{{ $('Webhook').item.json.body.environment }}`)\n🔹 **Endpoint:** `{{ $('Webhook').item.json.body.httpMethod }} {{ $('Webhook').item.json.body.endpoint }}`\n🔹 **Status:** `{{ $('Webhook').item.json.body.statusCode }}` | **Erro:** `{{ $('Webhook').item.json.body.exceptionType }}`\n\n───────────────────────────────\n\n🧠 **Diagnóstico do Gemini AI:**\n{{ $json.output }}\n\n───────────────────────────────\n\n🕒 *Registrado em: {{ $('Webhook').item.json.body.timestamp }}*",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        816,
+        0
+      ],
+      "id": "46449441-aff5-4338-875c-a64788de7cf6",
+      "name": "Discord",
+      "webhookId": "00201523-e13a-4059-b086-778e535c776f",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "NtAuzvbCDIgssoqi",
+          "name": "Discord Webhook account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "2bdef346-2c2b-4a97-9916-ca0cc83e00d2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "09e5fb50b1218ec5d025cb572acea2673a2bcef8b087cbe1afeac1c71fbed97d"
+  },
+  "nodeGroups": [],
+  "id": "83wqC66hkQdslwzA",
+  "tags": []
+}
